@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect } from 'react';
 import { useObservable, users } from '@/rxjs/mySubscription.service';
 

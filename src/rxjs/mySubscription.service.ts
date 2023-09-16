@@ -80,23 +80,23 @@ export const useObservable = (
    * Operators operating ingredients inside the pipe
    */
 
-  observable.pipe(
+  const observableWithOperators = observable.pipe(
     map((value) => {
-      console.log("1) Got data from observable");
+      alert("1) Got data from observable");
       return value.data;
     }),
     map((value) => {
-      console.log("2) Got data from first operator");
+      alert("2) Got data from first operator");
       return value.filter((user: any) => user.status === "active");
     }),
     map((value) => {
-      console.log("3) Got data from second operator");
+      alert("3) Got data from second operator");
       return (
         value.reduce((sum: number, user: any) => sum + user.age, 0)
       ) / value.length;
     }),
     map((value) => {
-      console.log("4) Got data from third operator", value);
+      alert("4) Got data from third operator");
       if (value < 18) throw new Error("Average is too young");
       else return value;
     })
@@ -107,6 +107,7 @@ export const useObservable = (
    */
   const observer: Observer<any> = {
     next: (value: any) => {
+      console.log("value: ", JSON.stringify(value));
       console.log("Observer got a value of " + value);
     },
     error: (err: any) => {
@@ -121,7 +122,7 @@ export const useObservable = (
    * Subscribe the observable
    */
 
-  const subscription = observable.subscribe(observer);
+  const subscription = observableWithOperators.subscribe(observer);
 
   return subscription;
 };
