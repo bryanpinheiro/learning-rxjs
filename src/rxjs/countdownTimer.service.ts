@@ -1,5 +1,5 @@
 import { interval } from 'rxjs';
-import { scan, map, tap, takeWhile } from 'rxjs/operators';
+import { scan, map, tap, takeWhile, startWith } from 'rxjs/operators';
 
 // streams
 const counterObservable = interval(1000);
@@ -12,14 +12,16 @@ const counterObservable = interval(1000);
 
 // pause countdown use takeUntil
 
-// 
+// COUNTDOWN
+const COUNTDOWN_FROM = 10;
 
 counterObservable
   .pipe(
     map(() => -1),
     scan((accumulator, current) => {
       return accumulator + current;
-    }, 10),
+    }, COUNTDOWN_FROM),
+    startWith(COUNTDOWN_FROM),
     tap(console.log),
     takeWhile(value => value >= 0),
   );
